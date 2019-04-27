@@ -47,6 +47,11 @@ def callback():
     return redirect(app.config['SUCCESS_URL'])
 
 
+@app.route('/slack_auth')
+def slack_auth():
+    return redirect(app.config['SLACK_OAUTH_URL'])
+
+
 @slack.on("message")
 def handle_message(event_data, req):
     # ignore retries
