@@ -21,9 +21,6 @@ class SlackTeam(db.Model):
     def slack_client(self):
         return SlackClient(self.bot_access_token)
 
-    def api_call(self, **kwargs):
-        self.slack_client().api_call(**kwargs)
-
     def update_last_access(self):
         self.last_request = datetime.datetime.utcnow()
 

@@ -73,21 +73,21 @@ def handle_message(event_data, req):
         db.session.add(thing)
         db.session.commit()
         output = generate_string(thing, operation)
-        team.api_call(
+        team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
             text=output
         )
         print("Processed " + thing.item)
     elif "leaderboard" in message and team.bot_user_id in message:
-        team.api_call(
+        team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
             blocks=generate_leaderboard()
         )
         print("Processed leaderboard for team " + team.id)
     elif "loserboard" in message and team.bot_user_id in message:
-        team.api_call(
+        team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
             blocks=generate_leaderboard(losers=True)
