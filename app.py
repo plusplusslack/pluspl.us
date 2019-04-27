@@ -1,5 +1,6 @@
 from flask import Flask, redirect, request
 from slackeventsapi import SlackEventAdapter
+from slackclient import SlackClient
 from operations import process_match, generate_string
 from leaderboard import generate_leaderboard
 from models import db, SlackTeam
@@ -13,7 +14,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 # init slack event adaptor
-slack = SlackEventAdapter(app.config['SIGNING_SECRET'], "/slack/events", app)
+slack = SlackEventAdapter(app.config['SLACK_SIGNING_SECRET'], "/slack/events", app)
 
 # init SQLAlchemy
 with app.app_context():
@@ -26,7 +27,20 @@ def callback():
     # first check for errors
     if request.args.get('error'):
         return redirect(app.config['ERROR_URL'])
-    data = request.json()
+        # Retrieve the auth code from the request params
+    auth_code = request.args['code']
+
+    # An empty string is a valid token for this request
+    sc = SlackClient("")
+
+    # Request the auth tokens from Slack
+    data = sc.api_call(
+        "oauth.access",
+        client_id=app.config['SLACK_CLIENT_ID'],
+        client_secret=app.config['SLACK_CLIENT_SECRET'],
+        code=auth_code
+    )
+
     team = SlackTeam(data)
     db.session.add(team)
     db.session.commit()
