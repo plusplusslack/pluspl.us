@@ -62,7 +62,7 @@ def handle_message(event_data, req):
     channel = event.get('channel')
 
     # load/update team
-    team = SlackTeam.query.filter_by(id=event_data['team']).first()
+    team = SlackTeam.query.filter_by(id=event_data['team_id']).first()
     team.update_last_access()
     db.session.add(team)
     db.session.commit()
