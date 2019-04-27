@@ -15,7 +15,7 @@ def help_text(team):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Hey hey! Here's a quick rundown on how to use <@{team.bot_user_id}>"
+                "text": f"Hey hey! Here's a quick rundown on how to use <@{team.bot_user_id}>"
             }
         },
         {
