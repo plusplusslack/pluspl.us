@@ -4,6 +4,7 @@ from slackclient import SlackClient
 from operations import process_match, generate_string
 from leaderboard import generate_leaderboard
 from models import db, SlackTeam
+from help import help_text
 import re
 
 # get Slack secret
@@ -98,6 +99,20 @@ def handle_message(event_data, req):
             blocks=generate_leaderboard(losers=True)
         )
         print("Processed loserboard for team " + team.id)
+    elif "help" in message and team.bot_user_id.lower() in message:
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            blocks=help_text(team)
+        )
+        print("Processed help for team " + team.id)
+    elif "feedback" in message and team.bot_user_id.lower() in message:
+        print(message)
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            text="Thanks! For a more urgent response, please email " + app.config['SUPPORT_EMAIL']
+        )
     return "OK", 200
 
 
