@@ -6,8 +6,9 @@ def help_text(team):
                 "• {ping} leaderboard: get the current high scoring people and things",
                 "• {ping} loserboard: get the current low scoring people and things",
                 "• {ping} feedback <feedback>: send feedback about this bot to its owner"]
+    formatted_commands = list()
     for command in commands:
-        command.format(ping=f"@<@{team.bot_user_id}>")
+        formatted_commands.append(command.format(ping=f"@<@{team.bot_user_id}>"))
 
     help_block = [
         {
@@ -21,7 +22,7 @@ def help_text(team):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "\n".join(commands)
+                "text": "\n".join(formatted_commands)
             }
         },
         {
