@@ -1,3 +1,5 @@
+import config
+
 def help_text(team):
     commands = ["• '@(user)++': add points to a user (e.g. {ping}++) ",
                 "• '@(user)--': take points from a user (e.g. {ping}--)",
@@ -29,7 +31,7 @@ def help_text(team):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Still need help? Send us an email at support@pluspl.us!"
+                "text": f"Still need help? Send us an email at {config.SUPPORT_EMAIL}!"
             }
         }
     ]
