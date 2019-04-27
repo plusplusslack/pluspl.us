@@ -34,7 +34,7 @@ class Thing(db.Model):
     item = db.Column(db.String)
     points = db.Column(db.Integer, default=0)
     user = db.Column(db.Boolean)
-    team_id = db.Column(db.Integer, db.ForeignKey('SlackTeam.id'))
+    team_id = db.Column(db.String, db.ForeignKey('SlackTeam.id'))
 
     def increment(self):
         self.points += 1
