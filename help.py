@@ -32,3 +32,4 @@ def help_text(team):
             }
         }
     ]
+    return help_block
