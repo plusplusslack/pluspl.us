@@ -23,7 +23,7 @@ with app.app_context():
     db.create_all()
 
 
-@app.route('/callback')
+@app.route('/slack/callback')
 def callback():
     # first check for errors
     if request.args.get('error'):
