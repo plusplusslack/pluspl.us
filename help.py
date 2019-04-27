@@ -5,7 +5,7 @@ def help_text(team):
                 "• `#(thing)--`: take points from a thing (e.g. #jake--)",
                 "• {bot_ping} leaderboard: get the current high scoring people and things",
                 "• {bot_ping} loserboard: get the current low scoring people and things",
-                "• {bot_ping} feedback {feedback}: send feedback about this bot to its owner"]
+                "• {bot_ping} feedback <feedback>: send feedback about this bot to its owner"]
     for command in commands:
         command.format(bot_ping="@<@{team.bot_user_id}>")
 
