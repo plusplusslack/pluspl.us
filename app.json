@@ -1,0 +1,30 @@
+{
+    "name":"plusplusserver",
+    "description":"A (working) replacement for plusplus.chat",
+    "keywords":[
+        "plusplus",
+        "slack",
+        "chatbot",
+        "points",
+        "slack"
+    ],
+    "website":"https://github.com/conway/plusplusserver",
+    "addons":[
+        "heroku-postgresql"
+    ],
+    "website":"https://github.com/conway/plusplusserver",
+    "env":{
+        "SECRET_KEY":{
+            "description":"A secret key for Flask's cookies",
+            "generator":"secret"
+        },
+        "SLACK_BOT_USER_OAUTH_ACCESS_TOKEN":{
+            "description": "The bot user OAuth access token found under 'OAuth & Permissions'",
+            "required": true
+        },
+        "SLACK_SIGNING_SECRET":{
+            "description": "The Slack app's signing secret (found on the 'Basic Information' page).",
+            "required": true
+        }
+    }
+}

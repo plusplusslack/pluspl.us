@@ -1,0 +1,41 @@
+{
+  "plus": [
+    "Yay!",
+    "Woot woot!",
+    "Great job!",
+    "_Nice_.",
+    "Woo hoo!",
+    "Awesome!",
+    "Congrats!",
+    ":tada:"
+  ],
+  "plus_points": [
+    "{thing} now has {points} points!",
+    "{thing} is up to {points} points!"
+  ],
+  "minus": [
+    "Womp womp.",
+    "Ouch.",
+    "Oof.",
+    "Yikes.",
+    ":frowning:",
+    "Bummer.",
+    "Ope.",
+    "Oh no!"
+  ],
+  "minus_points": [
+    "{thing} now has {points} points.",
+    "{thing} is down to {points} points."
+  ],
+  "equals":[
+    "{thing} is currently at {points} points."
+  ],
+  "self": [
+    "Nice try, {thing}",
+    "We've got a cheater over here!",
+    "Don't even try me",
+    "Great! You now have -∞ points!",
+    "{thing} has been banned from Slack.",
+    "{thing}--"
+  ]
+}
