@@ -48,7 +48,7 @@ def callback():
     return redirect(app.config['SUCCESS_URL'])
 
 
-@app.route('/slack_auth')
+@app.route('/slack/auth')
 def slack_auth():
     return redirect(app.config['SLACK_OAUTH_URL'])
 
