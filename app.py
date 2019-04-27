@@ -79,14 +79,14 @@ def handle_message(event_data, req):
             text=output
         )
         print("Processed " + thing.item)
-    elif "leaderboard" in message and team.bot_user_id in message:
+    elif "leaderboard" in message and team.bot_user_id.lower() in message:
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
             blocks=generate_leaderboard()
         )
         print("Processed leaderboard for team " + team.id)
-    elif "loserboard" in message and team.bot_user_id in message:
+    elif "loserboard" in message and team.bot_user_id.lower() in message:
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
