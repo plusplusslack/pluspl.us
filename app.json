@@ -41,6 +41,11 @@
         "SUPPORT_EMAIL": {
             "description": "The email users can use to get support for this service.",
             "required": true
+        },
+        "SENTRY_URL": {
+            "description": "The configuration URL provided by sentry",
+            "required": true
         }
+
     }
 }

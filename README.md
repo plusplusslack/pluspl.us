@@ -14,8 +14,10 @@ to take away a point. A few additional features have been built in (see below), 
 - `@jake++`: give a point to a user or a thing
 - `@jake--`: take a point away from a user or a thing
 - `@jake==`: get the current number of points a user or thing has
-- `plusplus leaderboard`: get (up to) 10 of the top users and things
-- `plusplus loserboard`: get (up to) 10 of the bottom users and things
+- `@pluspl.us leaderboard`: get (up to) 10 of the top users and things
+- `@pluspl.us loserboard`: get (up to) 10 of the bottom users and things
+- `@pluspl.us help`: get a list of the available commands from within Slack
+
 
 ### Install Instructions
 
@@ -52,6 +54,11 @@ to take away a point. A few additional features have been built in (see below), 
    - The Signing Secret
   
    From the *Manage Distribution* page, stor the *Shareable URL*.
+
+1. **Register for Sentry.io**
+   
+   Register your new application at Sentry.io to provide error logging. It will generate a url that will be needed to 
+   install this app.
 
 1. **Deploy the app to Heroku.**
 

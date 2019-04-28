@@ -2,10 +2,19 @@ from flask import Flask
 from slackeventsapi import SlackEventAdapter
 from models import db
 from slack_handler import process_incoming_message
+from sentry_sdk.integrations.flask import FlaskIntegration
+import sentry_sdk
+
 
 # flask init
 app = Flask(__name__)
 app.config.from_object('config')
+
+# Setup sentry
+sentry_sdk.init(
+    dsn=app.config['SENTRY_URL'],
+    integrations=[FlaskIntegration()]
+)
 
 # init slack event adaptor
 slack = SlackEventAdapter(app.config['SLACK_SIGNING_SECRET'], "/slack/events", app)
