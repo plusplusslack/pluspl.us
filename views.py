@@ -37,6 +37,6 @@ def success():
 
 @views.route('/not_installed')
 def failure():
-    with open("content/failure.md", "r") as f:
+    with open("content/fail.md", "r") as f:
         text = markdown.markdown(f.read())
     return render_template("document.html", title="Install Failed", content=text)
