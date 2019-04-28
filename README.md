@@ -1,9 +1,12 @@
-# PlusPlus2 
+# PlusPl.us Server
 
-PlusPlus2 is a resurrection of the former [plusplus.chat](http://plusplus.chat). It was implemented in Python and 
-is (somewhat) based on the [Javascript version](https://github.com/tdmalone/working-plusplus/) by @tdmalone.
+PlusPl.us is a resurrection of the former [plusplus.chat](http://plusplus.chat). It was implemented in Python and 
+is (somewhat) based on the [Javascript version](https://github.com/tdmalone/working-plusplus/) by @tdmalone, but has 
+been expanded to work as a fully hosted Slack app for multiple teams like the original plusplus.chat.
 
-If you didn't use plusplus.chat before it went offline, it was an app that let you reward members of your slack team with imaginary points. All you had to do was type something like `@jake++` to reward someone a point, or `@jake--` to take away a point. 
+If you didn't use plusplus.chat before it went offline, it was an app that let you reward members of your Slack team 
+with imaginary points. All you had to do was type something like `@jake++` to reward someone a point, or `@jake--` 
+to take away a point. A few additional features have been built in (see below), and more features are planned.
 
 
 ### Features
@@ -12,6 +15,7 @@ If you didn't use plusplus.chat before it went offline, it was an app that let y
 - `@jake--`: take a point away from a user or a thing
 - `@jake==`: get the current number of points a user or thing has
 - `plusplus leaderboard`: get (up to) 10 of the top users and things
+- `plusplus loserboard`: get (up to) 10 of the bottom users and things
 
 ### Install Instructions
 
@@ -34,27 +38,37 @@ If you didn't use plusplus.chat before it went offline, it was an app that let y
 
    You can now install the app. Scroll back up, click *Install App to Workspace*, and follow the prompts.
 
+1. **Add a redirect URL**
+
+   Under the *OAuth & Permissions* section, scroll down to *Redirect URLs* and add the following URL:
+   `<your_domain_name.com>/slack/callback`
+   
 1. **Copy your tokens.**
 
-   From the same *OAuth & Permissions* page, copy the ***Bot** User OAuth Access Token* (_not_ the non-bot token!) and store it somewhere.
-
-   Go back to the *Basic Information* page, scroll down, and copy the *Signing Secret* too.
+   From the same *Basic Information* page, store the following tokens (you'll need them to setup the app on Heroku): 
+   
+   - The Client ID
+   - The Client Secret
+   - The Signing Secret
+  
+   From the *Manage Distribution* page, stor the *Shareable URL*.
 
 1. **Deploy the app to Heroku.**
 
    [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
  
-   This app was designed for Heroku, and shouldn't cost much to operate there. You may have to put in a credit card to increase the number of free hours alloted per month, though.
+   This app was designed for Heroku, and shouldn't cost much to operate there. 
+   You may have to put in a credit card to increase the number of free hours alloted per month, though.
+   Input the tokens and URL you collected in the previous step to the Heroku configuration to properly set up the app.
    
 1. **Back at Slack apps, switch on *Event Subscriptions* for your app.**
 
-   Via *Event Subscriptions* in the left menu. After switching on, enter your new Heroku app address - eg. `https://my-plusplus.herokuapp.com` - as the request URL.
+   Via *Event Subscriptions* in the left menu. After switching on, enter your new Heroku app address - eg. `https://your-domain.herokuapp.com/slack/event` - as the request URL.
 
    Scroll down and, under *Subscribe to Bot Events*, select the relevant events for the features you want the app to support:
 
-   * Select `message.channels` to support all general features in _public_ channels it is invited to
-   * Select `message.groups` to support all general features in _private_ channels it is invited to
-   * Select `app_mention` to support extended features such as leaderboards
+   * Select `message.channels` to support all general features in _public_ channels it is invited to.
+   * Select `message.groups` to support all general features in _private_ channels it is invited to.
 
    Finally, click *Save Changes*. If you wish, you can come back to this screen later and add or change the events the app handles.
 

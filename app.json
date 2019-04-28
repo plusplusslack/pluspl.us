@@ -18,12 +18,28 @@
             "description":"A secret key for Flask's cookies",
             "generator":"secret"
         },
-        "SLACK_BOT_USER_OAUTH_ACCESS_TOKEN":{
-            "description": "The bot user OAuth access token found under 'OAuth & Permissions'",
+        "SLACK_CLIENT_ID": {
+            "description": "The Slack App's Client ID",
+            "required": true
+        },
+        "SLACK_CLIENT_SECRET": {
+            "description": "The Slack App's Client Secret",
+            "required": true
+        },
+        "SLACK_OAUTH_URL": {
+            "description": "The Slack App's OAuth authentication URL",
             "required": true
         },
         "SLACK_SIGNING_SECRET":{
             "description": "The Slack app's signing secret (found on the 'Basic Information' page).",
+            "required": true
+        },
+        "NAME": {
+            "description": "The name of the service",
+            "required": true
+        },
+        "SUPPORT_EMAIL": {
+            "description": "The email users can use to get support for this service.",
             "required": true
         }
     }

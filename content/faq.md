@@ -25,3 +25,7 @@ Yup! Type `@pluspl.us help` in your Slack channel and the bot will send a list o
 
 Send an email to support@pluspl.us and we'll work something out
 
+#### Is this app open-source?
+
+It is! You can find the source for pluspl.us at GitHub [here](https://github.com/Conway/pluspl.us). 
+There is also a single-team version of the app that can be found [here](https://github.com/Conway/plusplus-standalone).
