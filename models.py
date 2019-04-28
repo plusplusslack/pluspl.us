@@ -12,6 +12,7 @@ class SlackTeam(db.Model):
     bot_access_token = db.Column(db.String)
     things = db.relationship("Thing", backref="team")
     last_request = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    banned = db.Column(db.Boolean, default=False)
 
     def __init__(self, request_json):
         self.id = request_json['team_id']
@@ -32,9 +33,13 @@ class Thing(db.Model):
     points = db.Column(db.Integer, default=0)
     user = db.Column(db.Boolean)
     team_id = db.Column(db.String, db.ForeignKey('SlackTeam.id'))
+    show_in_global_leaderboard = db.Column(db.Boolean, default=True)
+    last_modified = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def increment(self):
         self.points += 1
+        self.last_modified = datetime.datetime.utcnow()
 
     def decrement(self):
         self.points -= 1
+        self.last_modified = datetime.datetime.utcnow()
