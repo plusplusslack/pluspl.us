@@ -1,7 +1,7 @@
 import os
 
 VERSION = 0.1
-NAME = "PlusPlusServer"
+NAME = os.environ.get('NAME')
 SLACK_CLIENT_ID = os.environ.get('SLACK_CLIENT_ID')
 SLACK_CLIENT_SECRET = os.environ.get('SLACK_CLIENT_SECRET')
 SLACK_OAUTH_URL = os.environ.get('SLACK_OAUTH_URL')

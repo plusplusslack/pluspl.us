@@ -17,7 +17,9 @@ with app.app_context():
 
 
 from slack import slack as slack_blueprint
+from views import views as views_blueprint
 app.register_blueprint(slack_blueprint, url_prefix='/slack')
+app.register_blueprint(views_blueprint)
 
 
 @slack.on("message")
