@@ -1,5 +1,10 @@
 Here are some commonly asked questions about pluspl.us's capabilities, operations and other details.
 
+
+#### What is this service's privacy policy?
+
+The privacy policy can be viewed [here](/privacy_policy).
+
 #### What operations are supported right now?
 
 ++, --. and == (plus, minus, and equals) are supported for both people and things. Additionally, @plusplus leaderboard and @plusplus loserboard is also supported to get the local high and low scores. 
