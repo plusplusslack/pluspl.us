@@ -80,6 +80,6 @@ to take away a point. A few additional features have been built in (see below), 
     
 ## Contributions
 
-Contributions are welcome to this repository! Please read our [contribution guide](/CONTRIBUTING.md) before contributing, and 
+Contributions are welcome to this repository! Please read our [Code of Conduct](/CODE_OF_CONDUCT.md) before contributing, and 
 consider opening an issue before writing code.
 
