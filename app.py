@@ -1,7 +1,6 @@
-from flask import Flask, redirect, request
+from flask import Flask
 from slackeventsapi import SlackEventAdapter
-from slackclient import SlackClient
-from models import db, SlackTeam
+from models import db
 from slack_handler import process_incoming_message
 
 # flask init
@@ -17,34 +16,8 @@ with app.app_context():
     db.create_all()
 
 
-@app.route('/slack/callback')
-def callback():
-    # first check for errors
-    if request.args.get('error'):
-        return redirect(app.config['ERROR_URL'])
-        # Retrieve the auth code from the request params
-    auth_code = request.args['code']
-
-    # An empty string is a valid token for this request
-    sc = SlackClient("")
-
-    # Request the auth tokens from Slack
-    data = sc.api_call(
-        "oauth.access",
-        client_id=app.config['SLACK_CLIENT_ID'],
-        client_secret=app.config['SLACK_CLIENT_SECRET'],
-        code=auth_code
-    )
-
-    team = SlackTeam(data)
-    db.session.add(team)
-    db.session.commit()
-    return redirect(app.config['SUCCESS_URL'])
-
-
-@app.route('/slack/auth')
-def slack_auth():
-    return redirect(app.config['SLACK_OAUTH_URL'])
+from slack import slack as slack_blueprint
+app.register_blueprint(slack_blueprint, url_prefix='/slack')
 
 
 @slack.on("message")
