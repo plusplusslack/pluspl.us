@@ -10,7 +10,7 @@ slack = Blueprint('slack', __name__)
 def callback():
     # first check for errors
     if request.args.get('error'):
-        return redirect(app.config['ERROR_URL'])
+        return redirect('/not_installed')
 
     # Retrieve the auth code from the request params
     auth_code = request.args['code']
@@ -29,7 +29,7 @@ def callback():
     team = SlackTeam(data)
     db.session.add(team)
     db.session.commit()
-    return redirect(app.config['SUCCESS_URL'])
+    return redirect('/installed')
 
 
 @slack.route('/auth')

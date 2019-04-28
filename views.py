@@ -26,3 +26,17 @@ def faq():
 @views.route('/support')
 def support():
     return render_template("support.html")
+
+
+@views.route('/installed')
+def success():
+    with open("content/success.md", "r") as f:
+        text = markdown.markdown(f.read())
+    return render_template("document.html", title="Install Complete!", content=text)
+
+
+@views.route('/not_installed')
+def success():
+    with open("content/failure.md", "r") as f:
+        text = markdown.markdown(f.read())
+    return render_template("document.html", title="Install Failed", content=text)
