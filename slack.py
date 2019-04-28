@@ -2,6 +2,7 @@ from flask import Blueprint, request, redirect
 from flask import current_app as app
 from slackclient import SlackClient
 from models import db, SlackTeam
+from sqlalchemy.exc import IntegrityError
 
 slack = Blueprint('slack', __name__)
 
@@ -26,9 +27,12 @@ def callback():
         code=auth_code
     )
 
-    team = SlackTeam(data)
-    db.session.add(team)
-    db.session.commit()
+    try:
+        team = SlackTeam(data)
+        db.session.add(team)
+        db.session.commit()
+    except IntegrityError:
+        print("Someone attempted to sign up a team that already exists")
     return redirect('/installed')
 
 
