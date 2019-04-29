@@ -26,7 +26,8 @@ def callback():
         client_secret=app.config['SLACK_CLIENT_SECRET'],
         code=auth_code
     )
-    if data['error']:  # abort if error
+    if 'error' in data:  # abort if error
+        print("ERROR: " + data['error'])
         return redirect('/not_installed')
 
     # create new team or update data
