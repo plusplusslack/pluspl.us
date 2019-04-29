@@ -37,6 +37,7 @@ def callback():
         db.session.commit()
         print("Created team " + team.id)
     except IntegrityError:
+        db.session().rollback()
         team = SlackTeam.query.filter_by(id=data['team_id']).first()
         team.update(data)
         db.session.add(team)
