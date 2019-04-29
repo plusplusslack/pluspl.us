@@ -76,7 +76,8 @@ to take away a point. A few additional features have been built in (see below), 
 
    * Select `message.channels` to support all general features in _public_ channels it is invited to.
    * Select `message.groups` to support all general features in _private_ channels it is invited to.
-
+   * Select `message.im` to support receiving commands by private message.
+   
    Finally, click *Save Changes*. If you wish, you can come back to this screen later and add or change the events the app handles.
 
 1. **Invite your new bot to any channel in your Slack team and use it.**

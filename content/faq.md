@@ -19,7 +19,7 @@ Just type `@pluspl.us loserboard` and the bottom 10 users and things will be dis
 
 #### Is there a shortcut to see the instructions within Slack?
 
-Yup! Type `@pluspl.us help` in your Slack channel and the bot will send a list of commands back.
+Yup! Type `@pluspl.us help` in your Slack channel or in a private message to the bot and the it will send a list of commands back.
 
 #### Is there a way to delete my team's data from you servers or alter the data?
 
