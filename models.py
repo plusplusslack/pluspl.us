@@ -15,6 +15,9 @@ class SlackTeam(db.Model):
     banned = db.Column(db.Boolean, default=False)
 
     def __init__(self, request_json):
+        self.update(request_json)
+
+    def update(self, request_json):
         self.id = request_json['team_id']
         self.bot_user_id = request_json['bot']['bot_user_id']
         self.bot_access_token = request_json['bot']['bot_access_token']

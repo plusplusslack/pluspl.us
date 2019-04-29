@@ -26,13 +26,21 @@ def callback():
         client_secret=app.config['SLACK_CLIENT_SECRET'],
         code=auth_code
     )
+    if data['error']:  # abort if error
+        return redirect('/not_installed')
 
+    # create new team or update data
     try:
         team = SlackTeam(data)
         db.session.add(team)
         db.session.commit()
+        print("Created team " + team.id)
     except IntegrityError:
-        print("Someone attempted to sign up a team that already exists")
+        team = SlackTeam.query.filter_by(id=data['team_id']).first()
+        team.update(data)
+        db.session.add(team)
+        db.session.commit()
+        print("Updated tokens for team " + team.id)
     return redirect('/installed')
 
 
