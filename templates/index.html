@@ -6,6 +6,6 @@
     <p>{{ config.NAME }} is a point bot for Slack. Using ++ and --, you can add or subtract points from other things or team members for doing good things (or not-so-good things). Reward your team members for doing good today with {{ config.NAME }}!.</p>
 
     <h3>Click the button below to install {{ config.NAME }}</h3>
-    <a href="https://slack.com/oauth/authorize?client_id=10999049126.619779133527&scope=bot,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a>
+    <a href="{{ config.SLACK_OAUTH_URL }}"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a>
     </div>
 {% endblock %}
