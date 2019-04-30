@@ -53,14 +53,14 @@ def process_incoming_message(event_data, req):
             blocks=generate_leaderboard(losers=True)
         )
         print("Processed loserboard for team " + team.id)
-    elif "help" in message and team.bot_user_id.lower() in message:
+    elif "help" in message and (team.bot_user_id.lower() in message or event=="message.im"):
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
             blocks=help_text(team)
         )
         print("Processed help for team " + team.id)
-    elif "feedback" in message and team.bot_user_id.lower() in message:
+    elif "feedback" in message and (team.bot_user_id.lower() in message or event=="message.im"):
         print(message)
         team.slack_client().api_call(
             "chat.postMessage",
