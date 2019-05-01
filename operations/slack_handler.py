@@ -1,7 +1,7 @@
-from points import process_match, generate_string
-from leaderboard import generate_leaderboard
-from help import help_text
-from models import db, SlackTeam
+from operations.points import process_match, generate_string
+from operations.leaderboard import generate_leaderboard
+from operations.help import help_text
+from .models import db, SlackTeam
 import re
 import config
 
