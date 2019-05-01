@@ -1,4 +1,4 @@
-from operations import process_match, generate_string
+from points import process_match, generate_string
 from leaderboard import generate_leaderboard
 from help import help_text
 from models import db, SlackTeam

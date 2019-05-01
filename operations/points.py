@@ -1,4 +1,4 @@
-from models import Thing
+from .models import Thing
 import json
 import random
 

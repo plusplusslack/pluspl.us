@@ -1,7 +1,7 @@
 from flask import Flask
 from slackeventsapi import SlackEventAdapter
 from models import db
-from slack_handler import process_incoming_message
+from operations.slack_handler import process_incoming_message
 from sentry_sdk.integrations.flask import FlaskIntegration
 import sentry_sdk
 
