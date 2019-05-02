@@ -25,8 +25,7 @@ def callback():
         "oauth.access",
         client_id=app.config['SLACK_CLIENT_ID'],
         client_secret=app.config['SLACK_CLIENT_SECRET'],
-        code=auth_code,
-        redirect_uri=app.config['SLACK_REDIRECT_URI']
+        code=auth_code
     )
     if 'error' in data:  # abort if error
         print("ERROR: " + data['error'])
