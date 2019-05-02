@@ -9,6 +9,8 @@ def help_text(team):
                 "• *#(thing)==*: get current point total of a thing (e.g. #jake==)",
                 "• *{ping} leaderboard*: get the current high scoring people and things",
                 "• *{ping} loserboard*: get the current low scoring people and things",
+                "• *{ping} leaderboard global*: get the current high scoring things across all teams",
+                "• *{ping} loserboard global*: get the current low scoring things across all teams",
                 "• *{ping} feedback <feedback>*: send feedback about this bot to its wrangler"]
     formatted_commands = list()
     for command in commands:
