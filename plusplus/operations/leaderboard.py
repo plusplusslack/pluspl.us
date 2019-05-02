@@ -2,20 +2,25 @@ from ..models import Thing
 import json
 
 
-def generate_leaderboard(team, losers=False):
+def generate_leaderboard(team=None, losers=False, global_leaderboard=False):
     if losers:
         ordering = Thing.points.asc()
         header = "Here's the current loserboard:"
     else:
         ordering = Thing.points.desc()
-        header = "Here's the current leaderboardboard:"
+        header = "Here's the current leaderboard:"
 
-    users = Thing.query.filter_by(user=True, team=team).order_by(ordering).limit(10)
-    things = Thing.query.filter_by(user=False, team=team).order_by(ordering).limit(10)
+    # filter args
+    user_args = {"user": True}
+    thing_args = {"user": False}
+    if not global_leaderboard:
+        user_args['team'] = team
+        thing_args['team'] = team
+        users = Thing.query.filter_by(**user_args).order_by(ordering).limit(10)
 
-    formatted_users = [f"<@{user.item.upper()}> ({user.points})" for user in users]
+    things = Thing.query.filter_by(**thing_args).order_by(ordering).limit(10)
+
     formatted_things = [f"{thing.item} ({thing.points})" for thing in things]
-    numbered_users = generate_numbered_list(formatted_users)
     numbered_things = generate_numbered_list(formatted_things)
     leaderboard_header = {"type": "section",
                           "text":
@@ -28,14 +33,18 @@ def generate_leaderboard(team, losers=False):
                 "fields": [
                     {
                         "type": "mrkdwn",
-                        "text": "*Users*\n" + numbered_users
-                    },
-                    {
-                        "type": "mrkdwn",
                         "text": "*Things*\n" + numbered_things
                     }
                 ]
         }
+
+    if not global_leaderboard:
+        formatted_users = [f"<@{user.item.upper()}> ({user.points})" for user in users]
+        numbered_users = generate_numbered_list(formatted_users)
+        body['fields'].append({
+                                  "type": "mrkdwn",
+                                  "text": "*Users*\n" + numbered_users
+                              })
     leaderboard = [leaderboard_header, body]
     return json.dumps(leaderboard)
 
