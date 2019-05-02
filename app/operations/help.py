@@ -1,4 +1,4 @@
-import config
+from .. import config
 
 def help_text(team):
     commands = ["• *@(user)++*: add points to a user (e.g. {ping}++) ",
