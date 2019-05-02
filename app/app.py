@@ -4,7 +4,11 @@ from .models import db
 from .operations.slack_handler import process_incoming_message
 from sentry_sdk.integrations.flask import FlaskIntegration
 import sentry_sdk
+import sys
 
+BASE_DIR = os.path.join(os.path.dirname(__file__))
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
 
 # flask init
 app = Flask(__name__)
