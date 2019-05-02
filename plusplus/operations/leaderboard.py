@@ -15,7 +15,7 @@ def generate_leaderboard(team=None, losers=False, global_leaderboard=False):
     thing_args = {"user": False}
     if not global_leaderboard:
         user_args['team'] = team
-        things_args['team'] = team
+        thing_args['team'] = team
         users = Thing.query.filter_by(**user_args).order_by(ordering).limit(10)
 
     things = Thing.query.filter_by(**thing_args).order_by(ordering).limit(10)
