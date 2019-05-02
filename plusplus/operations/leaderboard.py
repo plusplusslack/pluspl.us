@@ -8,7 +8,7 @@ def generate_leaderboard(team=None, losers=False, global_leaderboard=False):
         header = "Here's the current loserboard:"
     else:
         ordering = Thing.points.desc()
-        header = "Here's the current leaderboardboard:"
+        header = "Here's the current leaderboard:"
 
     # filter args
     user_args = {"user": True}
