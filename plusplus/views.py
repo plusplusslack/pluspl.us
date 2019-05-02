@@ -18,7 +18,7 @@ def privacy_policy():
 
 @views.route('/faq')
 def faq():
-    with open("plusplus/content/fail.md", "r") as f:
+    with open("plusplus/content/faq.md", "r") as f:
         text = markdown.markdown(f.read())
     return render_template("document.html", title="FAQ", content=text)
 
