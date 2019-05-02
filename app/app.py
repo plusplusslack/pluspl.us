@@ -25,8 +25,8 @@ with app.app_context():
     db.create_all()
 
 
-from slack import slack as slack_blueprint
-from views import views as views_blueprint
+from .slack import slack as slack_blueprint
+from .views import views as views_blueprint
 app.register_blueprint(slack_blueprint, url_prefix='/slack')
 app.register_blueprint(views_blueprint)
 
