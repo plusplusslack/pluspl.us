@@ -1,8 +1,8 @@
-from .points import process_match, generate_string
-from .leaderboard import generate_leaderboard
-from .help import help_text
-from ..models import db, SlackTeam
-from .. import config
+from plusplus.operations.points import process_match, generate_string
+from plusplus.operations.leaderboard import generate_leaderboard
+from plusplus.operations.help import help_text
+from plusplus.models import db, SlackTeam
+from plusplus import config
 import re
 
 operation_exp = re.compile(r"(<?@|#)(.+)(\+\+|\-\-|==)")
