@@ -6,7 +6,7 @@ import sys
 import hmac
 import hashlib
 from time import time
-import config
+from .. import config
 
 
 class SlackServer(Flask):

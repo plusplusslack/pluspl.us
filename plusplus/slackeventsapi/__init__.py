@@ -1,5 +1,5 @@
 from pyee import EventEmitter
-from slackserver import SlackServer
+from .slackserver import SlackServer
 
 
 class SlackEventAdapter(EventEmitter):

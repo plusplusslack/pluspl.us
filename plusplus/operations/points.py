@@ -1,4 +1,4 @@
-from models import Thing
+from ..models import Thing
 import json
 import random
 
@@ -43,7 +43,7 @@ def generate_string(thing, operation):
     else:
         item = thing.item
     points = thing.points
-    with open("strings.json", "r") as strings:
+    with open("plusplus/strings.json", "r") as strings:
         parsed = json.load(strings)
         if operation in ["plus", "minus"]:
             exclamation = random.choice(parsed[operation])

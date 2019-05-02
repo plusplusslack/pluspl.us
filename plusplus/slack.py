@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from flask import current_app as app
 from slackclient import SlackClient
-from models import db, SlackTeam
+from plusplus.models import db, SlackTeam
 from sqlalchemy.exc import IntegrityError
 
 slack = Blueprint('slack', __name__)
@@ -11,6 +11,7 @@ slack = Blueprint('slack', __name__)
 def callback():
     # first check for errors
     if request.args.get('error'):
+        print(request.args.get('error'))
         return redirect('/not_installed')
 
     # Retrieve the auth code from the request params
