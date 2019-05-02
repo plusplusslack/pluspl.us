@@ -25,7 +25,6 @@ def create_app():
 
     # SQLAlchemy setup
     db.init_app(app)
-    db.create_all()
 
     # blueprint setup
 
