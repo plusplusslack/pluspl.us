@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from flask import current_app as app
 from slackclient import SlackClient
-from models import db, SlackTeam
+from plusplus.models import db, SlackTeam
 from sqlalchemy.exc import IntegrityError
 
 slack = Blueprint('slack', __name__)
