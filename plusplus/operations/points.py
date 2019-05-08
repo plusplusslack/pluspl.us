@@ -1,4 +1,4 @@
-from ..models import Thing
+from plusplus.models import db, Thing
 import json
 import random
 

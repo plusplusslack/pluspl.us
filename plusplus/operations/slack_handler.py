@@ -1,7 +1,7 @@
 from plusplus.operations.points import update_points, generate_string
 from plusplus.operations.leaderboard import generate_leaderboard
 from plusplus.operations.help import help_text
-from plusplus.models import db, SlackTeam
+from plusplus.models import db, SlackTeam, Thing
 from plusplus import config
 import re
 
