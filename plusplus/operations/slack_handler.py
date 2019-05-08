@@ -32,8 +32,8 @@ def process_incoming_message(event_data, req):
     thing_match = thing_exp.match(message)
     if user_match:
         # handle user point operations
-        found_user = user_match.groups()[0]
-        operation = user_match.groups()[1]
+        found_user = user_match.groups()[0].strip()
+        operation = user_match.groups()[1].strip()
         thing = Thing.query.filter_by(item=found_user.lower(), team=team).first()
         if not thing:
             thing = Thing(item=found_user.lower(), points=0, user=True, team_id=team.id)
@@ -46,8 +46,8 @@ def process_incoming_message(event_data, req):
         print("Processed " + thing.item)
     elif thing_match:
         # handle thing point operations
-        found_thing = thing_match.groups()[0]
-        operation = thing_match.groups()[1]
+        found_thing = thing_match.groups()[0].strip()
+        operation = thing_match.groups()[1].strip()
         thing = Thing.query.filter_by(item=found_thing.lower(), team=team).first()
         if not thing:
             thing = Thing(item=found_thing.lower(), points=0, user=False, team_id=team.id)

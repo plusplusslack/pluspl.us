@@ -4,7 +4,7 @@ import random
 
 
 def update_points(thing, end, is_self=False):
-    if is_self:  # don't allow someone to plus themself
+    if is_self and end != '==':  # don't allow someone to plus themself
         operation = "self"
     elif end == "++":
         operation = "plus"
