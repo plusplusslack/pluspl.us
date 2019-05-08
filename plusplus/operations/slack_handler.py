@@ -1,12 +1,12 @@
-from plusplus.operations.points import process_match, generate_string
+from plusplus.operations.points import update_points, generate_string
 from plusplus.operations.leaderboard import generate_leaderboard
 from plusplus.operations.help import help_text
-from plusplus.models import db, SlackTeam
+from plusplus.models import db, SlackTeam, Thing
 from plusplus import config
 import re
 
-operation_exp = re.compile(r"(<?@|#)(.+)(\+\+|\-\-|==)")
-
+user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
+thing_exp = re.compile(r"#(.+)(\+\+|\-\-|==)")
 
 def process_incoming_message(event_data, req):
     # ignore retries
@@ -28,16 +28,34 @@ def process_incoming_message(event_data, req):
     db.session.add(team)
     db.session.commit()
 
-    operation_match = operation_exp.match(message)
-    if operation_match:
-        thing, operation = process_match(operation_match, user, team)
-        db.session.add(thing)
-        db.session.commit()
-        output = generate_string(thing, operation)
+    user_match = user_exp.match(message)
+    thing_match = thing_exp.match(message)
+    if user_match:
+        # handle user point operations
+        found_user = user_match.groups()[0].strip()
+        operation = user_match.groups()[1].strip()
+        thing = Thing.query.filter_by(item=found_user.lower(), team=team).first()
+        if not thing:
+            thing = Thing(item=found_user.lower(), points=0, user=True, team_id=team.id)
+        message = update_points(thing, operation, is_self=user==found_user)
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
-            text=output
+            text=message
+        )
+        print("Processed " + thing.item)
+    elif thing_match:
+        # handle thing point operations
+        found_thing = thing_match.groups()[0].strip()
+        operation = thing_match.groups()[1].strip()
+        thing = Thing.query.filter_by(item=found_thing.lower(), team=team).first()
+        if not thing:
+            thing = Thing(item=found_thing.lower(), points=0, user=False, team_id=team.id)
+        message = update_points(thing, operation)
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            text=message
         )
         print("Processed " + thing.item)
     elif "leaderboard" in message and team.bot_user_id.lower() in message:
