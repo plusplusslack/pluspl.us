@@ -10,7 +10,9 @@
     ],
     "website":"https://github.com/conway/plusplusserver",
     "addons":[
-        "heroku-postgresql"
+        "heroku-postgresql",
+        "sumologic",
+        "adminium"
     ],
     "website":"https://github.com/conway/plusplusserver",
     "env":{
