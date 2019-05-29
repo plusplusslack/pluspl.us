@@ -24,6 +24,7 @@ class SlackTeam(db.Model):
         self.id = request_json['team_id']
         self.bot_user_id = request_json['bot']['bot_user_id']
         self.bot_access_token = request_json['bot']['bot_access_token']
+        self.get_team_metadata()
 
     def slack_client(self):
         return SlackClient(self.bot_access_token)
