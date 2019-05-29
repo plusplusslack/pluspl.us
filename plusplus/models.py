@@ -13,6 +13,9 @@ class SlackTeam(db.Model):
     things = db.relationship("Thing", backref="team")
     last_request = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     banned = db.Column(db.Boolean, default=False)
+    team_name = db.Column(db.String)
+    team_domain = db.Column(db.String)
+    team_email_domain = db.Column(db.String)
 
     def __init__(self, request_json):
         self.update(request_json)
@@ -27,6 +30,13 @@ class SlackTeam(db.Model):
 
     def update_last_access(self):
         self.last_request = datetime.datetime.utcnow()
+
+    def get_team_metadata(self):
+        sc = self.slack_client()
+        response = sc.api_call("team.info")
+        self.team_name = response['team']['name']
+        self.team_domain = f"https://{response['team']['domain']}slack.com"
+        self.team_email_domain = response['team']['email_domain']
 
 
 class Thing(db.Model):
