@@ -36,7 +36,7 @@ class SlackTeam(db.Model):
         sc = self.slack_client()
         response = sc.api_call("team.info")
         self.team_name = response['team']['name']
-        self.team_domain = f"https://{response['team']['domain']}slack.com"
+        self.team_domain = f"https://{response['team']['domain']}.slack.com"
         self.team_email_domain = response['team']['email_domain']
 
 
