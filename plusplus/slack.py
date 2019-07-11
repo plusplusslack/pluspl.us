@@ -76,5 +76,5 @@ def slack_components_callback():
         db.session.commit()
         return "OK"
         print("Deleted items for team: " + team_id)
-    print("No valid component action located".)
+    print("No valid component action located.")
     return abort(400)
