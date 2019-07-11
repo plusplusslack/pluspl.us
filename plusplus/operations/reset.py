@@ -1,4 +1,3 @@
-from ..models import Team
 import json
 
 def generate_reset_block():
@@ -14,7 +13,7 @@ def generate_reset_block():
 
     # add button sections
     sections.append({
-        'type': 'actions'
+        'type': 'actions',
         'elements': [{
             'type': 'button',
             'text': {
