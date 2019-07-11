@@ -1,6 +1,7 @@
 from plusplus.operations.points import update_points, generate_string
 from plusplus.operations.leaderboard import generate_leaderboard
 from plusplus.operations.help import help_text
+from plusplus.operations.reset import generate_reset_block
 from plusplus.models import db, SlackTeam, Thing
 from plusplus import config
 import re
@@ -87,5 +88,11 @@ def process_incoming_message(event_data, req):
             "chat.postMessage",
             channel=channel,
             text="Thanks! For a more urgent response, please email " + config.SUPPORT_EMAIL
+        )
+    elif "reset" in message and team.bot_user_id.lower() in message:
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            blocks=generate_reset_block(team)
         )
     return "OK", 200
