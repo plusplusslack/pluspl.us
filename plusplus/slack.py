@@ -63,13 +63,18 @@ def slack_components_callback():
     req = str.encode('v0:' + str(req_timestamp) + ':') + req_data_raw
     request_hash = 'v0=' + hmac.new(str.encode(config.SLACK_SIGNING_SECRET), req, hashlib.sha256).hexdigest()
     if not hmac.compare_digest(request_hash, req_signature):
+        print("Received invalid signature from Slack.")
         return abort(403)
     # right now the only component being called is the delete button
     # if more are added in the future, this logic will need to change
     req_data = request.get_json(force=True)
     if req_data['actions'][0]['value'] == 'delete_all':
         team_id = req_data['team']['id']
-        objects = Thing.query.filter_by(team_id=team_id).delete()
+        objects = Thing.query.filter_by(team_id=team_id).all()
+        for object in objects:
+            db.session.delete(object)
         db.session.commit()
         return "OK"
+        print("Deleted items for team: " + team_id)
+    print("No valid component action located".)
     return abort(400)
