@@ -93,6 +93,6 @@ def process_incoming_message(event_data, req):
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
-            blocks=generate_reset_block(team)
+            blocks=generate_reset_block()
         )
     return "OK", 200
