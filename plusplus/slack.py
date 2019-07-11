@@ -3,7 +3,7 @@ from flask import current_app as app
 from slackclient import SlackClient
 from plusplus.models import db, SlackTeam
 from sqlalchemy.exc import IntegrityError
-import config
+from plusplus import config
 import hashlib
 import hmac
 
