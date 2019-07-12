@@ -24,8 +24,8 @@ def process_incoming_message(event_data, req):
     if subtype == 'message_changed':
         return "Status: OK"
 
-    message = event.get('text', '').lower()
-    user = event.get('user', '').lower()
+    message = event.get('text').lower()
+    user = event.get('user').lower()
     channel = event.get('channel')
     channel_type = event.get('channel_type')
 
