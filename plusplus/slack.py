@@ -71,9 +71,9 @@ def slack_components_callback():
     req_data = json.loads(request.form["payload"])
     if req_data['actions'][0]['value'] == 'delete_all':
         team_id = req_data['team']['id']
-        objects = Thing.query.filter_by(team_id=team_id).all()
-        for object in objects:
-            db.session.delete(object)
+        objects = Thing.query.filter_by(team_id=team_id).delete()
+        # for object in objects:
+        #     db.session.delete(object)
         db.session.commit()
         return "OK"
         print("Deleted items for team: " + team_id)
