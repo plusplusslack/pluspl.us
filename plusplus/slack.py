@@ -70,12 +70,16 @@ def slack_components_callback():
     # if more are added in the future, this logic will need to change
     req_data = json.loads(request.form["payload"])
     if req_data['actions'][0]['value'] == 'delete_all':
+        # delete all objects in db
         team_id = req_data['team']['id']
         objects = Thing.query.filter_by(team_id=team_id).delete()
-        # for object in objects:
-        #     db.session.delete(object)
         db.session.commit()
-        return "OK"
         print("Deleted items for team: " + team_id)
-    print("No valid component action located.")
+        # replace message in Slack with who initiated this request
+        response_url = req_data['response_url']
+        user_id = req_data['user']['id']
+        data = {"replace_original: true", text=f"<@{user_id}> sucessfully deleted all pluspl.us objects from this team."}
+        requests.post(response_url, data=data)
+        return "OK"
+
     return abort(422)
