@@ -1,8 +1,13 @@
-from flask import Blueprint, request, redirect
+from flask import Blueprint, abort, request, redirect
 from flask import current_app as app
 from slackclient import SlackClient
-from plusplus.models import db, SlackTeam
+from plusplus.models import db, SlackTeam, Thing
 from sqlalchemy.exc import IntegrityError
+from plusplus import config
+import hashlib
+import hmac
+import json
+import requests
 
 slack = Blueprint('slack', __name__)
 
@@ -50,3 +55,32 @@ def callback():
 @slack.route('/auth')
 def slack_auth():
     return redirect(app.config['SLACK_OAUTH_URL'])
+
+@slack.route('/components', methods=['POST'])
+def slack_components_callback():
+    # verify request manually
+    req_timestamp = request.headers.get('X-Slack-Request-Timestamp')
+    req_signature = request.headers.get('X-Slack-Signature')
+    req_data_raw = request.get_data()
+    req = str.encode('v0:' + str(req_timestamp) + ':') + req_data_raw
+    request_hash = 'v0=' + hmac.new(str.encode(config.SLACK_SIGNING_SECRET), req, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(request_hash, req_signature):
+        print("Received invalid signature from Slack.")
+        return abort(403)
+    # right now the only component being called is the delete button
+    # if more are added in the future, this logic will need to change
+    req_data = json.loads(request.form["payload"])
+    if req_data['actions'][0]['value'] == 'delete_all':
+        # delete all objects in db
+        team_id = req_data['team']['id']
+        objects = Thing.query.filter_by(team_id=team_id).delete()
+        db.session.commit()
+        print("Deleted items for team: " + team_id)
+        # replace message in Slack with who initiated this request
+        response_url = req_data['response_url']
+        user_id = req_data['user']['id']
+        data = {"replace_original": "true", "text": f"<@{user_id}> sucessfully cleared the leaderboard for this team."}
+        requests.post(response_url, json=data)
+        return "OK"
+
+    return abort(422)

@@ -1,6 +1,7 @@
 from plusplus.operations.points import update_points, generate_string
 from plusplus.operations.leaderboard import generate_leaderboard
 from plusplus.operations.help import help_text
+from plusplus.operations.reset import generate_reset_block
 from plusplus.models import db, SlackTeam, Thing
 from plusplus import config
 import re
@@ -12,11 +13,17 @@ def process_incoming_message(event_data, req):
     # ignore retries
     if req.headers.get('X-Slack-Retry-Reason'):
         return "Status: OK"
-    # ignore bot messages
-    if 'subtype' in event_data['event'] and event_data['event']['subtype'] == 'bot_message':
-        return "Status: OK"
 
     event = event_data['event']
+    subtype = event.get('subtype', '')
+    # ignore bot messages
+    if subtype == 'bot_message':
+        return "Status: OK"
+
+    # ignore edited messages
+    if subtype == 'message_changed':
+        return "Status: OK"
+
     message = event.get('text').lower()
     user = event.get('user').lower()
     channel = event.get('channel')
@@ -87,5 +94,11 @@ def process_incoming_message(event_data, req):
             "chat.postMessage",
             channel=channel,
             text="Thanks! For a more urgent response, please email " + config.SUPPORT_EMAIL
+        )
+    elif "reset" in message and team.bot_user_id.lower() in message:
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            blocks=generate_reset_block()
         )
     return "OK", 200
