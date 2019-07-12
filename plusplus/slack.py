@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, request, redirect
 from flask import current_app as app
 from slackclient import SlackClient
-from plusplus.models import db, SlackTeam
+from plusplus.models import db, SlackTeam, Thing
 from sqlalchemy.exc import IntegrityError
 from plusplus import config
 import hashlib
