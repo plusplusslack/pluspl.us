@@ -7,6 +7,7 @@ from plusplus import config
 import hashlib
 import hmac
 import json
+import requests
 
 slack = Blueprint('slack', __name__)
 
