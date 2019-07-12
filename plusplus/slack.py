@@ -80,7 +80,7 @@ def slack_components_callback():
         response_url = req_data['response_url']
         user_id = req_data['user']['id']
         data = {"replace_original": "true", "text": f"<@{user_id}> sucessfully deleted all pluspl.us objects from this team."}
-        requests.post(response_url, data=data)
+        requests.post(response_url, json=data)
         return "OK"
 
     return abort(422)
