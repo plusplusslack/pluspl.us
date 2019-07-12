@@ -13,14 +13,19 @@ def process_incoming_message(event_data, req):
     # ignore retries
     if req.headers.get('X-Slack-Retry-Reason'):
         return "Status: OK"
-    # ignore bot messages
-    if 'subtype' in event_data['event'] and event_data['event']['subtype'] == 'bot_message':
-        return "Status: OK"
 
     event = event_data['event']
-    print(event)
-    message = event.get('text').lower()
-    user = event.get('user').lower()
+    subtype = event.get('subtype', '')
+    # ignore bot messages
+    if subtype == 'bot_message':
+        return "Status: OK"
+
+    # ignore edited messages
+    if subtype == 'message_changed':
+        return "Status: OK"
+
+    message = event.get('text', '').lower()
+    user = event.get('user', '').lower()
     channel = event.get('channel')
     channel_type = event.get('channel_type')
 
