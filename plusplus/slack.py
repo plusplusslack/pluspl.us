@@ -68,6 +68,7 @@ def slack_components_callback():
     # right now the only component being called is the delete button
     # if more are added in the future, this logic will need to change
     req_data = request.get_json(force=True)
+    print(req_data)
     if req_data['actions'][0]['value'] == 'delete_all':
         team_id = req_data['team']['id']
         objects = Thing.query.filter_by(team_id=team_id).all()
@@ -77,4 +78,4 @@ def slack_components_callback():
         return "OK"
         print("Deleted items for team: " + team_id)
     print("No valid component action located.")
-    return abort(400)
+    return abort(422)
