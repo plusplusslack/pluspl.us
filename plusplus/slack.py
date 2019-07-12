@@ -78,7 +78,7 @@ def slack_components_callback():
         # replace message in Slack with who initiated this request
         response_url = req_data['response_url']
         user_id = req_data['user']['id']
-        data = {"replace_original: true", text=f"<@{user_id}> sucessfully deleted all pluspl.us objects from this team."}
+        data = {"replace_original: true", "text"=f"<@{user_id}> sucessfully deleted all pluspl.us objects from this team."}
         requests.post(response_url, data=data)
         return "OK"
 
