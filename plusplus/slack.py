@@ -58,7 +58,7 @@ def slack_auth():
 @slack.route('/components', methods=['POST'])
 def slack_components_callback():
     # verify request manually
-    req_data = json.loads(request.data, strict=False)
+    req_data = json.loads(request.form["payload"])
     req_timestamp = request.headers.get('X-Slack-Request-Timestamp')
     req_signature = request.headers.get('X-Slack-Signature')
     req_data_raw = request.get_data()
