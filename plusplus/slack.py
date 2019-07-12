@@ -58,7 +58,6 @@ def slack_auth():
 @slack.route('/components', methods=['POST'])
 def slack_components_callback():
     # verify request manually
-    req_data = json.loads(request.form["payload"])
     req_timestamp = request.headers.get('X-Slack-Request-Timestamp')
     req_signature = request.headers.get('X-Slack-Signature')
     req_data_raw = request.get_data()
@@ -69,6 +68,7 @@ def slack_components_callback():
         return abort(403)
     # right now the only component being called is the delete button
     # if more are added in the future, this logic will need to change
+    req_data = json.loads(request.form["payload"])
     if req_data['actions'][0]['value'] == 'delete_all':
         team_id = req_data['team']['id']
         objects = Thing.query.filter_by(team_id=team_id).all()
