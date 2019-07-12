@@ -18,6 +18,7 @@ def process_incoming_message(event_data, req):
         return "Status: OK"
 
     event = event_data['event']
+    print(event)
     message = event.get('text').lower()
     user = event.get('user').lower()
     channel = event.get('channel')
