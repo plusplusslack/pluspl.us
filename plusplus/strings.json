@@ -10,8 +10,8 @@
     ":tada:"
   ],
   "plus_points": [
-    "{thing} now has {points} points!",
-    "{thing} is up to {points} points!"
+    "{thing} now has {points_string}!",
+    "{thing} is up to {points_string}!"
   ],
   "minus": [
     "Womp womp.",
@@ -24,11 +24,11 @@
     "Oh no!"
   ],
   "minus_points": [
-    "{thing} now has {points} points.",
-    "{thing} is down to {points} points."
+    "{thing} now has {points_string}.",
+    "{thing} is down to {points_string}."
   ],
   "equals":[
-    "{thing} is currently at {points} points."
+    "{thing} is currently at {points_string}."
   ],
   "self": [
     "Nice try, {thing}",
