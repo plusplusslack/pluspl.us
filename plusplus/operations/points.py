@@ -25,15 +25,17 @@ def generate_string(thing, operation):
     else:
         formatted_thing = thing.item
     points = thing.points
+    points_word = "points" if points > 1 else "point"
+    points_string = f"{points} {points_word}"
     with open("plusplus/strings.json", "r") as strings:
         parsed = json.load(strings)
         if operation in ["plus", "minus"]:
             exclamation = random.choice(parsed[operation])
-            points = random.choice(parsed[operation + "_points"]).format(thing=formatted_thing, points=points)
+            points = random.choice(parsed[operation + "_points"]).format(thing=formatted_thing, points_string=points_string)
             return f"{exclamation} {points}"
         elif operation == "self":
             return random.choice(parsed[operation]).format(thing=formatted_thing)
         elif operation == "equals":
-            return random.choice(parsed[operation]).format(thing=formatted_thing, points=points)
+            return random.choice(parsed[operation]).format(thing=formatted_thing, points_string=points_string)
         else:
             return ""  # probably unnecessary, but here as a fallback
