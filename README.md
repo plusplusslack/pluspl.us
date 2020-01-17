@@ -29,70 +29,7 @@ Support this project on [Patreon](https://www.patreon.com/plpl) or [Buy me a Cof
 
 ### Install Instructions
 
-(Instructions adapted from [here](https://github.com/tdmalone/working-plusplus/blob/master/README.md#installation))
-
-1. **Create a new app in your Slack team.**
-
-   You can do this from the [Slack API Apps page](https://api.slack.com/apps).
-   You'll need permission to add new apps, which depending on your team settings might require an admin to do it for you.
-
-1. **Add a bot user for your app.**
-
-    This can be done under *Bot Users* in the menu on the left. You can name it whatever you like, and for best results, select it to always show as online.
-
-    This allows the app to speak back to your team when they ++ and -- things.
-
-1. **Add chat permissions, and install the app.**
-
-   Under *OAuth & Permissions*, scroll down to *Scopes* and add the `chat:write:bot` permission. Click *Save Changes*.
-
-   You can now install the app. Scroll back up, click *Install App to Workspace*, and follow the prompts.
-
-1. **Add a redirect URL**
-
-   Under the *OAuth & Permissions* section, scroll down to *Redirect URLs* and add the following URL:
-   `<your_domain_name.com>/slack/callback`
-
-1. **Copy your tokens.**
-
-   From the same *Basic Information* page, store the following tokens (you'll need them to setup the app on Heroku):
-
-   - The Client ID
-   - The Client Secret
-   - The Signing Secret
-
-   From the *Manage Distribution* page, stor the *Shareable URL*.
-
-1. **Register for Sentry.io**
-
-   Register your new application at Sentry.io to provide error logging. It will generate a url that will be needed to
-   install this app.
-
-1. **Deploy the app to Heroku.**
-
-   [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-   This app was designed for Heroku, and shouldn't cost much to operate there.
-   You may have to put in a credit card to increase the number of free hours alloted per month, though.
-   Input the tokens and URL you collected in the previous step to the Heroku configuration to properly set up the app.
-
-1. **Back at Slack apps, switch on *Event Subscriptions* for your app.**
-
-   Via *Event Subscriptions* in the left menu. After switching on, enter your new Heroku app address - eg. `https://your-domain.herokuapp.com/slack/event` - as the request URL.
-
-   Scroll down and, under *Subscribe to Bot Events*, select the relevant events for the features you want the app to support:
-
-   * Select `message.channels` to support all general features in _public_ channels it is invited to.
-   * Select `message.groups` to support all general features in _private_ channels it is invited to.
-   * Select `message.im` to support receiving commands by private message.
-
-   Finally, click *Save Changes*. If you wish, you can come back to this screen later and add or change the events the app handles.
-
-1. **Invite your new bot to any channel in your Slack team and use it.**
-
-    */invite @yourplusplus2bot*
-
-    *@jake++*
+Installation instructions are available in the [wiki](https://github.com/plusplusslack/pluspl.us/wiki/Installation)
 
 ## Contributions
 
