@@ -9,6 +9,21 @@ import re
 user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
 thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\+\+|\-\-|==)")
 
+def post_message(message, channel, thread_ts = ''):
+    if parent_ts === '':
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            text=message
+        )
+    else:
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            text=message,
+            thread_ts=parent_ts
+        )
+
 def process_incoming_message(event_data, req):
     # ignore retries
     if req.headers.get('X-Slack-Retry-Reason'):
@@ -16,6 +31,10 @@ def process_incoming_message(event_data, req):
 
     event = event_data['event']
     subtype = event.get('subtype', '')
+
+    # is the message from a thread
+    thread_ts = subtype === 'message_replied' ? event.get('event_ts') : ''
+
     # ignore bot messages
     if subtype == 'bot_message':
         return "Status: OK"
@@ -45,11 +64,7 @@ def process_incoming_message(event_data, req):
         if not thing:
             thing = Thing(item=found_user.lower(), points=0, user=True, team_id=team.id)
         message = update_points(thing, operation, is_self=user==found_user)
-        team.slack_client().api_call(
-            "chat.postMessage",
-            channel=channel,
-            text=message
-        )
+        post_message(message, channel, thread_ts)
         print("Processed " + thing.item)
     elif thing_match:
         # handle thing point operations
@@ -59,11 +74,7 @@ def process_incoming_message(event_data, req):
         if not thing:
             thing = Thing(item=found_thing.lower(), points=0, user=False, team_id=team.id)
         message = update_points(thing, operation)
-        team.slack_client().api_call(
-            "chat.postMessage",
-            channel=channel,
-            text=message
-        )
+        post_message(message, channel, thread_ts)
         print("Processed " + thing.item)
     elif "leaderboard" in message and team.bot_user_id.lower() in message:
         global_board = "global" in message
