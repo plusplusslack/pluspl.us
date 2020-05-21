@@ -9,8 +9,8 @@ import re
 user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
 thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\+\+|\-\-|==)")
 
-def post_message(message, channel, thread_ts = ''):
-    if parent_ts === '':
+def post_message(message, channel, thread_ts=''):
+    if parent_ts == '':
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
@@ -33,7 +33,7 @@ def process_incoming_message(event_data, req):
     subtype = event.get('subtype', '')
 
     # is the message from a thread
-    thread_ts = subtype === 'message_replied' ? event.get('event_ts') : ''
+    thread_ts = event.get('event_ts') if subtype === 'message_replied' else ''
 
     # ignore bot messages
     if subtype == 'bot_message':
