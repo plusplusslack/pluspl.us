@@ -10,7 +10,7 @@ user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
 thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\+\+|\-\-|==)")
 
 def post_message(message, channel, thread_ts=''):
-    if parent_ts == '':
+    if thread_ts == '':
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
@@ -21,7 +21,7 @@ def post_message(message, channel, thread_ts=''):
             "chat.postMessage",
             channel=channel,
             text=message,
-            thread_ts=parent_ts
+            thread_ts=thread_ts
         )
 
 def process_incoming_message(event_data, req):
