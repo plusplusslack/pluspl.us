@@ -9,7 +9,7 @@ import re
 user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
 thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\+\+|\-\-|==)")
 
-def post_message(message, channel, thread_ts=''):
+def post_message(message, team, channel, thread_ts=''):
     if thread_ts == '':
         team.slack_client().api_call(
             "chat.postMessage",
@@ -64,7 +64,7 @@ def process_incoming_message(event_data, req):
         if not thing:
             thing = Thing(item=found_user.lower(), points=0, user=True, team_id=team.id)
         message = update_points(thing, operation, is_self=user==found_user)
-        post_message(message, channel, thread_ts)
+        post_message(message, team, channel, thread_ts)
         print("Processed " + thing.item)
     elif thing_match:
         # handle thing point operations
@@ -74,7 +74,7 @@ def process_incoming_message(event_data, req):
         if not thing:
             thing = Thing(item=found_thing.lower(), points=0, user=False, team_id=team.id)
         message = update_points(thing, operation)
-        post_message(message, channel, thread_ts)
+        post_message(message, team, channel, thread_ts)
         print("Processed " + thing.item)
     elif "leaderboard" in message and team.bot_user_id.lower() in message:
         global_board = "global" in message
