@@ -2,7 +2,7 @@ blinker>=1.1
 certifi==2020.4.5.1
 chardet==3.0.4
 Click==7.0
-Flask==1.1.1
+Flask==1.1.2
 Flask-SQLAlchemy==2.4.1
 gunicorn==19.9.0
 idna==2.9
