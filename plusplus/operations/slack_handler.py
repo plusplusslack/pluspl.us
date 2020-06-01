@@ -37,7 +37,7 @@ def process_incoming_message(event_data, req):
     # hacky workaround to determine the event subtype due to a bug
     # with Slack as of 6/1/2020 where subtypes are not sent over the events API
     # https://api.slack.com/events/message/message_replied
-    if 'thread_ts' in event and event['ts'] == event['thread_ts']:
+    if 'thread_ts' in event and event['ts'] != event['thread_ts']:
         # has to be a top-level message if thread_ts is provided
         thread_ts = event['thread_ts']
     else:
