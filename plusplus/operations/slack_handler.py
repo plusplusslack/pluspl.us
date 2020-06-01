@@ -1,4 +1,4 @@
-from plusplus.operations.points import update_points, generate_string
+from plusplus.operations.points import update_points
 from plusplus.operations.leaderboard import generate_leaderboard
 from plusplus.operations.help import help_text
 from plusplus.operations.reset import generate_reset_block
@@ -8,6 +8,7 @@ import re
 
 user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
 thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\+\+|\-\-|==)")
+
 
 def post_message(message, team, channel, thread_ts=None):
     if thread_ts:
