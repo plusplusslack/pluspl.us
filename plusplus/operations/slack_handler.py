@@ -33,7 +33,7 @@ def process_incoming_message(event_data, req):
     subtype = event.get('subtype', '')
 
     # is the message from a thread
-    thread_ts = event.get('event_ts') if subtype === 'message_replied' else ''
+    thread_ts = event.get('event_ts') if subtype == 'message_replied' else ''
 
     # ignore bot messages
     if subtype == 'bot_message':
