@@ -9,20 +9,21 @@ import re
 user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
 thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\+\+|\-\-|==)")
 
-def post_message(message, team, channel, thread_ts=''):
-    if thread_ts == '':
-        team.slack_client().api_call(
-            "chat.postMessage",
-            channel=channel,
-            text=message
-        )
-    else:
+def post_message(message, team, channel, thread_ts=None):
+    if thread_ts:
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
             text=message,
             thread_ts=thread_ts
         )
+    else:
+        team.slack_client().api_call(
+            "chat.postMessage",
+            channel=channel,
+            text=message
+        )
+
 
 def process_incoming_message(event_data, req):
     # ignore retries
@@ -33,7 +34,14 @@ def process_incoming_message(event_data, req):
     subtype = event.get('subtype', '')
 
     # is the message from a thread
-    thread_ts = event.get('event_ts') if subtype == 'message_replied' else ''
+    # hacky workaround to determine the event subtype due to a bug
+    # with Slack as of 6/1/2020 where subtypes are not sent over the events API
+    # https://api.slack.com/events/message/message_replied
+    if 'thread_ts' in event['message']:
+        # has to be a top-level message if the thread_ts
+        thread_ts = event['message']['thread_ts']
+    else:
+        thread_ts = None
 
     # ignore bot messages
     if subtype == 'bot_message':
@@ -64,7 +72,7 @@ def process_incoming_message(event_data, req):
         if not thing:
             thing = Thing(item=found_user.lower(), points=0, user=True, team_id=team.id)
         message = update_points(thing, operation, is_self=user==found_user)
-        post_message(message, team, channel, thread_ts)
+        post_message(message, team, channel, thread_ts=thread_ts)
         print("Processed " + thing.item)
     elif thing_match:
         # handle thing point operations
