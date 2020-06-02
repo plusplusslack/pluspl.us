@@ -1,1 +1,1 @@
-from plusplus.app import create_app
+from plusplus.app import create_app  # noqa: F401

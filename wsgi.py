@@ -8,5 +8,5 @@ if BASE_DIR not in sys.path:
 sys.path.append("/plusplus")
 
 # give wsgi the "application"
-from plusplus import create_app
+from plusplus import create_app  # noqa: E402
 application = create_app()

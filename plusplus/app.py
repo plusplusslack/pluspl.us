@@ -33,7 +33,6 @@ def create_app():
     app.register_blueprint(slack_blueprint, url_prefix='/slack')
     app.register_blueprint(views_blueprint)
 
-
     @slack.on("message")
     def handle_message(event_data, req):
         process_incoming_message(event_data, req)

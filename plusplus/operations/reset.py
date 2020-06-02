@@ -1,5 +1,6 @@
 import json
 
+
 def generate_reset_block():
     sections = []
     # add info section
@@ -29,7 +30,7 @@ def generate_reset_block():
                 },
                 'text': {
                     'type': 'mrkdwn',
-                    'text': ':warning: *Warning!* :warning: Clicking the button below will permanently erase all objects for your team. There is no way to undo this, so proceed cautiously.'
+                    'text': ':warning: *Warning!* :warning: Clicking the button below will permanently erase all objects for your team. There is no way to undo this, so proceed cautiously.'  # noqa: E501
                 },
                 'confirm': {
                     'type': 'plain_text',

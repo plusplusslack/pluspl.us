@@ -1,4 +1,4 @@
-from plusplus.models import db, Thing
+from plusplus.models import db
 import json
 import random
 
@@ -31,7 +31,8 @@ def generate_string(thing, operation):
         parsed = json.load(strings)
         if operation in ["plus", "minus"]:
             exclamation = random.choice(parsed[operation])
-            points = random.choice(parsed[operation + "_points"]).format(thing=formatted_thing, points_string=points_string)
+            random_msg = random.choice(parsed[operation + "_points"])
+            points = random_msg.format(thing=formatted_thing, points_string=points_string)
             return f"{exclamation} {points}"
         elif operation == "self":
             return random.choice(parsed[operation]).format(thing=formatted_thing)

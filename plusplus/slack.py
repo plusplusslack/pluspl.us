@@ -56,6 +56,7 @@ def callback():
 def slack_auth():
     return redirect(app.config['SLACK_OAUTH_URL'])
 
+
 @slack.route('/components', methods=['POST'])
 def slack_components_callback():
     # verify request manually
@@ -73,7 +74,7 @@ def slack_components_callback():
     if req_data['actions'][0]['value'] == 'delete_all':
         # delete all objects in db
         team_id = req_data['team']['id']
-        objects = Thing.query.filter_by(team_id=team_id).delete()
+        Thing.query.filter_by(team_id=team_id).delete()
         db.session.commit()
         print("Deleted items for team: " + team_id)
         # replace message in Slack with who initiated this request
