@@ -5,7 +5,7 @@ Click==7.0
 Flask==1.1.2
 Flask-SQLAlchemy==2.4.4
 gunicorn==19.9.0
-idna==2.9
+idna==2.10
 itsdangerous==1.1.0
 Jinja2==2.11.2
 markdown==3.2.2
