@@ -13,15 +13,13 @@ thing_exp = re.compile(r"#([A-Za-z0-9\.\-_@$!\*\(\)\,\?\/%\\\^&\[\]\{\"':; ]+)(\
 
 def post_message(message, team, channel, thread_ts=None):
     if thread_ts:
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             text=message,
             thread_ts=thread_ts
         )
     else:
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             text=message
         )
@@ -87,36 +85,31 @@ def process_incoming_message(event_data):
         post_message(message, team, channel, thread_ts)
         print("Processed " + thing.item)
     elif "leaderboard" in message and team.bot_user_id.lower() in message:
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             blocks=generate_leaderboard(team=team)
         )
         print("Processed leaderboard for team " + team.id)
     elif "loserboard" in message and team.bot_user_id.lower() in message:
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             blocks=generate_leaderboard(team=team, losers=True)
         )
         print("Processed loserboard for team " + team.id)
     elif "help" in message and (team.bot_user_id.lower() in message or channel_type == "im"):
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             blocks=help_text(team)
         )
         print("Processed help for team " + team.id)
     elif "feedback" in message and (team.bot_user_id.lower() in message or channel_type == "im"):
         print(message)
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             text="Thanks! For a more urgent response, please email " + config.SUPPORT_EMAIL
         )
     elif "reset" in message and team.bot_user_id.lower() in message:
-        team.slack_client().api_call(
-            "chat.postMessage",
+        team.slack_client.chat_postMessage(
             channel=channel,
             blocks=generate_reset_block()
         )

@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from slackclient import SlackClient
+from from slack import WebClient
 import datetime
 
 db = SQLAlchemy()
@@ -26,15 +26,16 @@ class SlackTeam(db.Model):
         self.bot_access_token = request_json['bot']['bot_access_token']
         self.get_team_metadata()
 
+    @property
     def slack_client(self):
-        return SlackClient(self.bot_access_token)
+        return WebClient(self.bot_access_token)
 
     def update_last_access(self):
         self.last_request = datetime.datetime.utcnow()
 
     def get_team_metadata(self):
         sc = self.slack_client()
-        response = sc.api_call("team.info")
+        response = sc.team_info()
         self.team_name = response['team']['name']
         self.team_domain = f"https://{response['team']['domain']}.slack.com"
         self.team_email_domain = response['team']['email_domain']
