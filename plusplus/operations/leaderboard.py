@@ -2,7 +2,7 @@ from ..models import Thing
 import json
 
 
-def generate_leaderboard(team=None, losers=False, global_leaderboard=False):
+def generate_leaderboard(team=None, losers=False):
     if losers:
         ordering = Thing.points.asc()
         header = "Here's the current loserboard:"
@@ -11,21 +11,23 @@ def generate_leaderboard(team=None, losers=False, global_leaderboard=False):
         header = "Here's the current leaderboard:"
 
     # filter args
-    user_args = {"user": True}
-    thing_args = {"user": False}
-    if not global_leaderboard:
-        user_args['team'] = team
-        thing_args['team'] = team
-        users = Thing.query.filter_by(**user_args).order_by(ordering).limit(10)
+    user_args = {"user": True, "team": team}
+    thing_args = {"user": False, "team": team}
 
+    users = Thing.query.filter_by(**user_args).order_by(ordering).limit(10)
     things = Thing.query.filter_by(**thing_args).order_by(ordering).limit(10)
 
     formatted_things = [f"{thing.item} ({thing.points})" for thing in things]
     numbered_things = generate_numbered_list(formatted_things)
+
+    formatted_users = [f"<@{user.item.upper()}> ({user.points})" for user in users]
+    numbered_users = generate_numbered_list(formatted_users)
+
     leaderboard_header = {"type": "section",
                           "text":
-                              {"type": "mrkdwn",
-                               "text": header
+                              {
+                                "type": "mrkdwn",
+                                "text": header
                                }
                           }
     body = {
@@ -34,17 +36,14 @@ def generate_leaderboard(team=None, losers=False, global_leaderboard=False):
                     {
                         "type": "mrkdwn",
                         "text": "*Things*\n" + numbered_things
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Users*\n" + numbered_users
                     }
                 ]
         }
 
-    if not global_leaderboard:
-        formatted_users = [f"<@{user.item.upper()}> ({user.points})" for user in users]
-        numbered_users = generate_numbered_list(formatted_users)
-        body['fields'].append({
-                                  "type": "mrkdwn",
-                                  "text": "*Users*\n" + numbered_users
-                              })
     leaderboard = [leaderboard_header, body]
     return json.dumps(leaderboard)
 

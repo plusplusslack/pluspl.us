@@ -16,15 +16,13 @@ to take away a point. A few additional features have been built in (see below), 
 - `@jake==`: get the current number of points a user or thing has
 - `@pluspl.us leaderboard`: get (up to) 10 of the top users and things
 - `@pluspl.us loserboard`: get (up to) 10 of the bottom users and things
-- `@pluspl.us leaderboard global`: get (up to) 10 of the top things across all teams
-- `@pluspl.us loserboard global`: get (up to) 10 of the bottom things across all teams
 - `@pluspl.us reset`: permanently removes all points from a Slack team
 - `@pluspl.us help`: get a list of the available commands from within Slack
 
 
 ### Support
 
-Support this project on [Patreon](https://www.patreon.com/plpl) or [Buy me a Coffee](https://www.buymeacoffee.com/jhc). Contributions go towards hosting this app so that anyone can freely install it from the [Slack app store](https://www.slack.com/apps/AJ7NX3XFH-plusplus). 
+Support this project on [Patreon](https://www.patreon.com/plpl) or [Buy me a Coffee](https://www.buymeacoffee.com/jhc). Contributions go towards hosting this app so that anyone can freely install it from the [Slack app store](https://www.slack.com/apps/AJ7NX3XFH-plusplus).
 
 
 ### Install Instructions
