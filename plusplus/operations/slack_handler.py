@@ -4,6 +4,7 @@ from plusplus.operations.help import help_text
 from plusplus.operations.reset import generate_reset_block
 from plusplus.models import db, SlackTeam, Thing
 from plusplus import config
+from flask import request
 import re
 
 user_exp = re.compile(r"<@([A-Za-z0-9]+)> *(\+\+|\-\-|==)")
@@ -26,9 +27,9 @@ def post_message(message, team, channel, thread_ts=None):
         )
 
 
-def process_incoming_message(event_data, req):
+def process_incoming_message(event_data):
     # ignore retries
-    if req.headers.get('X-Slack-Retry-Reason'):
+    if request.headers.get('X-Slack-Retry-Reason'):
         return "Status: OK"
 
     event = event_data['event']
