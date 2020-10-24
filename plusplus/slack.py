@@ -26,8 +26,7 @@ def callback():
     sc = WebClient("")
 
     # Request the auth tokens from Slack
-    data = sc.api_call(
-        "oauth.access",
+    data = sc.oauth_v2_access(
         client_id=app.config['SLACK_CLIENT_ID'],
         client_secret=app.config['SLACK_CLIENT_SECRET'],
         code=auth_code
