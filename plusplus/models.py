@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from from slack import WebClient
+from slack import WebClient
 import datetime
 
 db = SQLAlchemy()

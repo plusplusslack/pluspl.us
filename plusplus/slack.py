@@ -23,7 +23,7 @@ def callback():
     auth_code = request.args['code']
 
     # An empty string is a valid token for this request
-    sc = SlackClient("")
+    sc = WebClient("")
 
     # Request the auth tokens from Slack
     data = sc.api_call(
