@@ -1,8 +1,8 @@
 from flask import Flask
-from plusplus.slackeventsapi import SlackEventAdapter
 from plusplus.models import db
 from plusplus.operations.slack_handler import process_incoming_message
 from sentry_sdk.integrations.flask import FlaskIntegration
+from slackeventsapi import SlackEventAdapter
 import sentry_sdk
 
 
@@ -34,7 +34,7 @@ def create_app():
     app.register_blueprint(views_blueprint)
 
     @slack.on("message")
-    def handle_message(event_data, req):
-        process_incoming_message(event_data, req)
+    def handle_message(event_data):
+        process_incoming_message(event_data)
 
     return app
