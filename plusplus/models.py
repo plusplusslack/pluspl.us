@@ -34,7 +34,7 @@ class SlackTeam(db.Model):
         self.last_request = datetime.datetime.utcnow()
 
     def get_team_metadata(self):
-        sc = self.slack_client()
+        sc = self.slack_client
         response = sc.team_info()
         self.team_name = response['team']['name']
         self.team_domain = f"https://{response['team']['domain']}.slack.com"
