@@ -86,19 +86,17 @@ def process_incoming_message(event_data, req):
         post_message(message, team, channel, thread_ts)
         print("Processed " + thing.item)
     elif "leaderboard" in message and team.bot_user_id.lower() in message:
-        global_board = "global" in message
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
-            blocks=generate_leaderboard(team=team, global_leaderboard=global_board)
+            blocks=generate_leaderboard(team=team)
         )
         print("Processed leaderboard for team " + team.id)
     elif "loserboard" in message and team.bot_user_id.lower() in message:
-        global_board = "global" in message
         team.slack_client().api_call(
             "chat.postMessage",
             channel=channel,
-            blocks=generate_leaderboard(team=team, losers=True, global_leaderboard=global_board)
+            blocks=generate_leaderboard(team=team, losers=True)
         )
         print("Processed loserboard for team " + team.id)
     elif "help" in message and (team.bot_user_id.lower() in message or channel_type == "im"):
