@@ -10,8 +10,7 @@ def help_text(team):
                 "• *#(thing)==*: get current point total of a thing (e.g. #jake==)",
                 "• *{ping} leaderboard*: get the current high scoring people and things",
                 "• *{ping} loserboard*: get the current low scoring people and things",
-                "• *{ping} reset*: resets the local leaderboard to 0",
-                "• *{ping} feedback <feedback>*: send feedback about this bot to its wrangler"]
+                "• *{ping} reset*: resets the local leaderboard to 0"]
     formatted_commands = list()
     for command in commands:
         formatted_commands.append(command.format(ping=f"<@{team.bot_user_id}>"))

@@ -102,12 +102,6 @@ def process_incoming_message(event_data):
             blocks=help_text(team)
         )
         print("Processed help for team " + team.id)
-    elif "feedback" in message and (team.bot_user_id.lower() in message or channel_type == "im"):
-        print(message)
-        team.slack_client.chat_postMessage(
-            channel=channel,
-            text="Thanks! For a more urgent response, please email " + config.SUPPORT_EMAIL
-        )
     elif "reset" in message and team.bot_user_id.lower() in message:
         team.slack_client.chat_postMessage(
             channel=channel,
