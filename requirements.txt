@@ -11,7 +11,7 @@ Jinja2==2.11.2
 markdown==3.3.3
 MarkupSafe==1.1.1
 psycopg2==2.8.6
-pyee==6.0.0
+pyee==8.1.0
 requests==2.25.0
 sentry-sdk==0.19.4
 six==1.15.0
