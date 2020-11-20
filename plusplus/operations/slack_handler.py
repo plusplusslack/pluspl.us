@@ -3,7 +3,6 @@ from plusplus.operations.leaderboard import generate_leaderboard
 from plusplus.operations.help import help_text
 from plusplus.operations.reset import generate_reset_block
 from plusplus.models import db, SlackTeam, Thing
-from plusplus import config
 from flask import request
 import re
 
