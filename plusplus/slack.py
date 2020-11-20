@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, request, redirect
 from flask import current_app as app
-from slackclient import SlackClient
+from slack import WebClient
 from plusplus.models import db, SlackTeam, Thing
 from sqlalchemy.exc import IntegrityError
 from plusplus import config
@@ -23,11 +23,10 @@ def callback():
     auth_code = request.args['code']
 
     # An empty string is a valid token for this request
-    sc = SlackClient("")
+    sc = WebClient("")
 
     # Request the auth tokens from Slack
-    data = sc.api_call(
-        "oauth.access",
+    data = sc.oauth_v2_access(
         client_id=app.config['SLACK_CLIENT_ID'],
         client_secret=app.config['SLACK_CLIENT_SECRET'],
         code=auth_code
@@ -44,7 +43,7 @@ def callback():
         print("Created team " + team.id)
     except IntegrityError:
         db.session().rollback()
-        team = SlackTeam.query.filter_by(id=data['team_id']).first()
+        team = SlackTeam.query.filter_by(id=data['team']['id']).first()
         team.update(data)
         db.session.add(team)
         db.session.commit()
