@@ -13,7 +13,7 @@ MarkupSafe==1.1.1
 psycopg2==2.8.6
 pyee==6.0.0
 requests==2.25.0
-sentry-sdk==0.19.4
+sentry-sdk==0.20.3
 six==1.15.0
 slackclient==2.9.3
 slackeventsapi==2.2.1
