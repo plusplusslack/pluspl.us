@@ -60,6 +60,7 @@ class SlackTeam(db.Model):
         csv_writer.writerows(data)
         return out.getvalue()
 
+
 class Thing(db.Model):
     __tablename__ = 'Thing'
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)

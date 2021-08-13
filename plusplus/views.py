@@ -1,5 +1,5 @@
 from flask import Blueprint, make_response, redirect, render_template, url_for
-from models import Team
+from models import SlackTeam
 import markdown
 
 views = Blueprint('views', __name__, template_folder='/template')
@@ -9,13 +9,15 @@ views = Blueprint('views', __name__, template_folder='/template')
 def index():
     return redirect(url_for('sunset'))
 
+
 @views.route('/archive/<team_uuid>.csv')
-def index(team_uuid):
-    team = Team.query.filter_by(team_archive_url=team_uuid).first()
+def archive(team_uuid):
+    team = SlackTeam.query.filter_by(team_archive_url=team_uuid).first()
     response = make_response(team.archive_csv)
     response.headers["Content-Disposition"] = "attachment; filename=export.csv"
     response.headers["Content-type"] = "text/csv"
     return response
+
 
 @views.route('/privacy_policy')
 def privacy_policy():
@@ -48,6 +50,7 @@ def failure():
     with open("plusplus/content/fail.md", "r") as f:
         text = markdown.markdown(f.read())
     return render_template("document.html", title="Install Failed", content=text)
+
 
 @views.route('/sunset')
 def sunset():
