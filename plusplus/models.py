@@ -1,6 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from slack import WebClient
+import csv
 import datetime
+import io
+import uuid
 
 db = SQLAlchemy()
 
@@ -16,6 +19,7 @@ class SlackTeam(db.Model):
     team_name = db.Column(db.String)
     team_domain = db.Column(db.String)
     team_email_domain = db.Column(db.String)
+    team_archive_url = db.Column(db.String, Unique=True)
 
     def __init__(self, request_json):
         self.update(request_json)
@@ -40,6 +44,21 @@ class SlackTeam(db.Model):
         self.team_domain = f"https://{response['team']['domain']}.slack.com"
         self.team_email_domain = response['team']['email_domain']
 
+    @property
+    def archive_url(self):
+        if not self.team_archive_url:
+            self.team_archive_url = str(uuid.uuid4())
+        return self.team_archive_url
+
+    @property
+    def archive_csv(self):
+        out = io.StringIO()
+        csv_writer = csv.writer(out)
+        data = [["id", "item", "points", "is_user", "last_modified"]]
+        for thing in Thing.query.filter_by(team_id=self.id).all():
+            data.append([thing.id, thing.item. thing.points, thing.user, thing.last_modified])
+        csv_writer.writerows(data)
+        return out.getvalue()
 
 class Thing(db.Model):
     __tablename__ = 'Thing'

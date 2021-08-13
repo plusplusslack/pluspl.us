@@ -106,4 +106,9 @@ def process_incoming_message(event_data):
             channel=channel,
             blocks=generate_reset_block()
         )
+    elif "export" in message and team.bot_user_id.lower() in message:
+        message = "Your team's data can be found at this URL: https://pluspl.us/archive/" + team.archive_url() + ".csv"
+        message += "\n\nNote: this link will remain active until pluspl.us is shut down on August 31, 2021. "
+        message += "Should you prefer to remove your data before then, please use @pluspl.us reset, which will also erase this URL."
+        post_message(message, team, channel, thread_ts)
     return "OK", 200
