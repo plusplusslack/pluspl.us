@@ -47,7 +47,12 @@ class SlackTeam(db.Model):
     @property
     def archive_url(self):
         if not self.team_archive_url:
-            self.team_archive_url = str(uuid.uuid4())
+            run = True
+            while run:
+                candidate = str(uuid.uuid4())
+                if Team.query.filter_by(team_archive_url=candidate).first() is None:
+                    self.team_archive_url = candidate
+                    run = False
         return self.team_archive_url
 
     @property
