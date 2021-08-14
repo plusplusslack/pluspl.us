@@ -50,7 +50,7 @@ class SlackTeam(db.Model):
             run = True
             while run:
                 candidate = str(uuid.uuid4())
-                if Team.query.filter_by(team_archive_url=candidate).first() is None:
+                if SlackTeam.query.filter_by(team_archive_url=candidate).first() is None:
                     self.team_archive_url = candidate
                     run = False
         return self.team_archive_url
