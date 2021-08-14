@@ -7,7 +7,7 @@ views = Blueprint('views', __name__, template_folder='/template')
 
 @views.route('/')
 def index():
-    return redirect(url_for('sunset'))
+    return redirect(url_for('views.sunset'))
 
 
 @views.route('/archive/<team_uuid>.csv')
