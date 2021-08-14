@@ -1,5 +1,5 @@
 from flask import Blueprint, make_response, redirect, render_template, url_for
-from models import SlackTeam
+from plusplus.models import SlackTeam
 import markdown
 
 views = Blueprint('views', __name__, template_folder='/template')
