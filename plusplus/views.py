@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, redirect, render_template, url_for
+from flask import abort, Blueprint, make_response, redirect, render_template, url_for
 from plusplus.models import SlackTeam
 import markdown
 
@@ -13,6 +13,8 @@ def index():
 @views.route('/archive/<team_uuid>.csv')
 def archive(team_uuid):
     team = SlackTeam.query.filter_by(team_archive_url=team_uuid).first()
+    if not team:
+        return abort(404)
     response = make_response(team.archive_csv)
     response.headers["Content-Disposition"] = "attachment; filename=export.csv"
     response.headers["Content-type"] = "text/csv"
