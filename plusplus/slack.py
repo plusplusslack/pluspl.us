@@ -73,13 +73,15 @@ def slack_components_callback():
     if req_data['actions'][0]['value'] == 'delete_all':
         # delete all objects in db
         team_id = req_data['team']['id']
+        team = SlackTeam.query.filter_by(id=team_id).first()
         Thing.query.filter_by(team_id=team_id).delete()
+        team.team_archive_url = None
         db.session.commit()
         print("Deleted items for team: " + team_id)
         # replace message in Slack with who initiated this request
         response_url = req_data['response_url']
         user_id = req_data['user']['id']
-        data = {"replace_original": "true", "text": f"<@{user_id}> sucessfully cleared the leaderboard for this team."}
+        data = {"replace_original": "true", "text": f"<@{user_id}> sucessfully cleared the leaderboard and archive URL for this team."}  # noqa: E501
         requests.post(response_url, json=data)
         return "OK"
 
