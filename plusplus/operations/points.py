@@ -39,7 +39,7 @@ def generate_string(thing, operation):
             out = random.choice(parsed[operation]).format(thing=formatted_thing)
         elif operation == "equals":
             out = random.choice(parsed[operation]).format(thing=formatted_thing, points_string=points_string)
-    out += ":warning: \n\n ATTENTION: pluspl.us will be shutdown on August 31, 2021. "
+    out += "\n\n:warning: ATTENTION: pluspl.us will be shutdown on August 31, 2021. "
     out += "Please see the help page (https://plusplus.herokuapp.com/sunset) for details "
     out += "and information on how to export your team's data. Thanks for using pluspl.us, we'll miss you :wave:"
     return out
