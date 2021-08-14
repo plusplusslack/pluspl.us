@@ -19,4 +19,4 @@ A: All data will be securely and permanently erased on August 31, 2021. After th
 
 ##### Q: Are there any replacement options?
 
-A: Other Slack apps may provide similar functionality. Alternatively, the code for pluspl.us will remain available on [Github](https://github.com/plusplusslack/pluspl.us) should you wish to run an instance for your own Slack team.
+A: Other Slack apps may provide similar functionality. Alternatively, the code for pluspl.us will remain available on [Github](https://github.com/plusplusslack/pluspl.us) should you wish to run an instance for your own Slack team. See [this branch](https://github.com/plusplusslack/pluspl.us/tree/pre-sunset) for the code prior to the sunset. 
