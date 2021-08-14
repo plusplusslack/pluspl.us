@@ -61,7 +61,7 @@ class SlackTeam(db.Model):
         csv_writer = csv.writer(out)
         data = [["id", "item", "points", "is_user", "last_modified"]]
         for thing in Thing.query.filter_by(team_id=self.id).all():
-            data.append([thing.id, thing.item. thing.points, thing.user, thing.last_modified])
+            data.append([thing.id, thing.item, thing.points, thing.user, thing.last_modified])
         csv_writer.writerows(data)
         return out.getvalue()
 
