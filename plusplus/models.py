@@ -19,7 +19,7 @@ class SlackTeam(db.Model):
     team_name = db.Column(db.String)
     team_domain = db.Column(db.String)
     team_email_domain = db.Column(db.String)
-    team_archive_url = db.Column(db.String, Unique=True)
+    team_archive_url = db.Column(db.String)
 
     def __init__(self, request_json):
         self.update(request_json)
