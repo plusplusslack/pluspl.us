@@ -1,5 +1,9 @@
 ### pluspl.us is being shut down
 
+
+Originally published: August 13, 2021
+
+
 This Slack application will stop working on August 31, 2021. Thanks to everyone who has used the application throughout the years, I hope you found some value in it. See below for some questions and answers related to the sunset.
 
 #### FAQ
